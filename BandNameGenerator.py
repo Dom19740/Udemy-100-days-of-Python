@@ -1,4 +1,4 @@
-# Improve Band Name Generator Exercise to include random answers
+# Add functionality of Band Name Generator Exercise to include random answers
 import random
 print('\n!!! *** Welcome to the Random Band Name Generator *** !!!\n')
 
