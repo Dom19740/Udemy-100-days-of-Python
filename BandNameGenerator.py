@@ -1,6 +1,6 @@
 # Improve Band Name Generator Exercise to include random answers
 import random
-print('\n!!! *** Welcome to the Random Band Name Generator *** !!!\n')
+print('Welcome to the Random Band Name Generator')
 
 random_numberA = random.randint(1, 4)
 
@@ -25,4 +25,4 @@ elif random_numberB == 3:
 elif random_numberB == 4:
     answerB = input('What is your favourite item of clothing? ')
 
-print(f'\nYour band name could be {answerA} {answerB}\n')
+print(f'Your band name could be {answerA} {answerB}')
