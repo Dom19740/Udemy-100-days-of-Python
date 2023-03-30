@@ -1,17 +1,19 @@
-from blackjack_art import logo, prize
+from blackjack_art import logo, prize, logo2
 import os
 import random
+
+#variables to store game wins
+player1_total = 0
+cpu_total = 0
 
 while True:
 
     os.system('cls')
     print(logo)
 
-    # restart = input("Do you want to play? 'y or 'n': ")
-
     cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
     #cards = [11, 2, 3, 4, 5, 6, 10]
-    #cards = [4]
+    # cards = [11, 10]
 
     #make dictionaries to hold cards and scores
     player_cards = {
@@ -56,7 +58,7 @@ while True:
         print(f"{player} score is {player_scores[player]}")
         return player_cards, player_scores
 
-    #show all
+    #show cards after 1st round
     show_cards("Cpu")
     show_cards("Player1")
 
@@ -64,14 +66,16 @@ while True:
     #function to assess scores
     def assess_score():
 
-        
         highest_score = 0
         winner = ""
         hit_stand = ""
+        global player1_total
+        global cpu_total
 
         #Player1 Blackjack
         if player_scores["Player1"] == 21 and player_cards["Cpu"] and player_scores["Cpu"] !=21:
             print("\nYou have BLACKJACK. Congratulations, You WIN!!")
+            player1_total += 1
         
         #Both players 21 with 2 cards
         elif player_scores["Player1"] == player_scores["Cpu"] and len(player_cards["Player1"]) == len(player_cards["Cpu"]):
@@ -82,16 +86,16 @@ while True:
 
         #Cpu over 21, Bust
         elif player_scores["Cpu"] > 21:
-            # print(player_cards["Cpu"]) #DELETE   
-            # print(player_scores["Cpu"]) #DELETE  
             show_cards("Cpu")
             print("\nCpu is BUST, Congratulations, you WIN!!")
+            player1_total += 1
         
         #Player1 over 21, Bust
         elif player_scores["Player1"] > 21:
             deal_card("Cpu")
             show_cards("Cpu")
             print("\nYou are BUST, you LOSE!!")
+            cpu_total += 1
 
         #Both players in game, compare scores and print winner
         elif player_scores["Cpu"] > 16 and player_scores["Cpu"] < 22:
@@ -105,8 +109,11 @@ while True:
             if winner == "Player1":
                 print("\nCongratulations, you WIN and get a PRIZE!!")
                 print(prize)
+                player1_total += 1
+
             else:
                 print("\nCpu WINS, UNLUCKY!!")
+                cpu_total += 1
 
         #prompt to hit for Player1
         else:
@@ -122,23 +129,28 @@ while True:
         if hit_stand == "s":
             while player_scores["Cpu"] < 17:
                 deal_card("Cpu")
-                # print(player_cards["Cpu"]) #DELETE  
 
             assess_score()
 
-        print("")
+        # print("")
+        return player1_total, cpu_total
 
 
-    assess_score()
-    # print(player_cards["Cpu"]) #DELETE   
-    # print(player_scores["Cpu"]) #DELETE   
-
+    #assess scores first time
+    player1_total, cpu_total = assess_score()
 
     # Ask the user if they want to play again
-    play_again = input("Would you like to play another round? (y/n) ")
+    play_again = input("\nWould you like to play another round? (y/n) ")
     if play_again == 'y':
         print("Starting game again...")
     else:
+        if player1_total > cpu_total:
+            print(f"\nFinal score {player1_total} : {cpu_total}, Well Done!!")
+        elif player1_total < cpu_total:
+            print(f"\nFinal score {player1_total} : {cpu_total}, Unlucky!!")
+        else:
+            print(f"\nFinal score {player1_total} : {cpu_total}, You Broke Even!!")
         break
 
+print(logo2)
 print("\nThanks for playing!\n")
