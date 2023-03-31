@@ -11,9 +11,9 @@ while True:
     os.system('cls')
     print(logo)
 
-    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+    #cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
     #cards = [11, 2, 3, 4, 5, 6, 10]
-    # cards = [11, 10]
+    cards = [6]
 
     #make dictionaries to hold cards and scores
     player_cards = {
@@ -78,7 +78,7 @@ while True:
             player1_total += 1
         
         #Both players 21 with 2 cards
-        elif player_scores["Player1"] == player_scores["Cpu"] and len(player_cards["Player1"]) == len(player_cards["Cpu"]):
+        elif player_scores["Player1"] == player_scores["Cpu"]:
 
             if len(player_cards["Player1"]) > 2:
                 show_cards("Cpu")
