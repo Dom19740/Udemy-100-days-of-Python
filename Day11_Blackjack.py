@@ -77,12 +77,15 @@ while True:
             print("\nYou have BLACKJACK. Congratulations, You WIN!!")
             player1_total += 1
         
-        #Both players 21 with 2 cards
+        #Both players same score
         elif player_scores["Player1"] == player_scores["Cpu"]:
-
-            if len(player_cards["Player1"]) > 2:
-                show_cards("Cpu")
-            print("\nIt's a draw, no one wins the hand.")
+            show_cards("Cpu")
+            if len(player_cards["Player1"]) == len(player_cards["Cpu"]):
+                print("\nIt's a draw, no one wins the hand.")
+            elif len(player_cards["Player1"]) < len(player_cards["Cpu"]):
+                print("\nYou have less cards. Congratulations, you WIN!!")
+            else:
+                print("\nYou have more cards. Unlucky you LOSE!!")
 
         #Cpu over 21, Bust
         elif player_scores["Cpu"] > 21:
