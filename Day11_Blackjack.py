@@ -13,7 +13,7 @@ while True:
 
     #cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
     #cards = [11, 2, 3, 4, 5, 6, 10]
-    cards = [6]
+    cards = [7, 6, 7]
 
     #make dictionaries to hold cards and scores
     player_cards = {
@@ -49,7 +49,7 @@ while True:
     #function to print cards and totals + convert 11 to 1 if over 21
     def show_cards(player):
         
-        if player == "Cpu" and player_scores["Player1"] == 21 and len(
+        if player_scores["Player1"] == 21 and len(
                 player_cards["Cpu"]) == 1:
             deal_card("Cpu")
                     
@@ -73,8 +73,20 @@ while True:
         global cpu_total
 
         #Player1 Blackjack
-        if player_scores["Player1"] == 21 and player_cards["Cpu"] and player_scores["Cpu"] !=21:
+        if player_scores["Player1"] == 21 and len(player_cards["Cpu"]) < 2:
+ 
+            deal_card("Cpu")
+            show_cards("Cpu")
             print("\nYou have BLACKJACK. Congratulations, You WIN!!")
+            player1_total += 1
+
+        elif player_scores["Player1"] == 21 and player_scores["Cpu"] !=21:
+ 
+            while player_scores["Cpu"] < 17:
+                deal_card("Cpu")
+            if len(player_cards["Player1"]) > 2:
+                show_cards("Cpu")
+            print("\nYou have 21. Congratulations, You WIN!!")
             player1_total += 1
         
         #Both players same score
@@ -96,12 +108,12 @@ while True:
         #Player1 over 21, Bust
         elif player_scores["Player1"] > 21:
             deal_card("Cpu")
-            show_cards("Cpu")
             print("\nYou are BUST, you LOSE!!")
+            show_cards("Cpu")
             cpu_total += 1
 
         #Both players in game, compare scores and print winner
-        elif player_scores["Cpu"] > 16 and player_scores["Cpu"] < 22:
+        elif player_scores["Cpu"] > 16 and player_scores["Cpu"] < 22: ##############
             show_cards("Cpu")
 
             for player in player_scores:
@@ -120,7 +132,7 @@ while True:
 
         #prompt to hit for Player1
         else:
-            hit_stand = input("\nType 'h' to Hit or 's' to Stand: ")
+            hit_stand = input("\nAnother Card? Type 'h' to Hit or 's' to Stand: ")
             while hit_stand != 'h' and hit_stand != 's':
                 hit_stand = input("\nType 'h' to Hit or 's' to Stand: ")
 
