@@ -1,61 +1,60 @@
 from higherlower_art import logo, vs
-import higherlower_gamedata
+from higherlower_gamedata import data
 import os
 import random
 
-# 'name': 'Instagram',
-# 'follower_count': 346,
-# 'description': 'Social media platform',
-# 'country': 'United States'
+os.system('cls')
+print(logo)
 
 
-#take data_B follower account as int and pass it into data_A
-#write function to
-    #take new data_B
-    #compare it with data_A
-    #return a compare winner
-#write function to
-    #prompt for guess
-    #return guess winner
-#evaluate if compare winner = guess winner and continue or end
+#function to pick an entry and pass into new compare_B dictionary
+def select_compare_B():
+    choice_B = random.choice(data)
+    compare_B = {key: value for key, value in choice_B.items()}
+
+    return choice_B
+
+compare_B = select_compare_B()
 
 
+play_again = True
+score = 0
+guess = False
 
-"""
-random select data_B
-#write function to
-def compare():
-    cls
-    print start logo
-    copy data_B to data_A
-    random select data_B
+#while lopp to continue playing while guess is correct
+while play_again:
 
-    print data_A
-    print vs logo
-    print data_B
+    #pass compare_b into compare_a and choose new compare_b
+    compare_A = compare_B
+    compare_B = select_compare_B()
 
-    compare follower_count dataA with dataB
-    if dataA is higher
-        return data A win
-    else
-        return data B win
+    #pick again if they are the same
+    while compare_B["follower_count"] == compare_A["follower_count"]:
+        compare_B = select_compare_B()
 
+    #print items to compare
+    os.system('cls')
+    print(logo)
 
-def guess():
+    if guess:
+        print(f"You are correct!! Current Score: {score}.\n")
+    else:
+        print("Current Score: 0\n")
 
-    guess = input("Who has more followers? Type 'a' or 'b': ")
-        if input == a
-            return data A win
-        else
-            return data B win
+    print(f"COMPARE A: {compare_A['name']}, a {compare_A['description']}, from {compare_A['country']}...")
+    print(vs)
+    print(f"AGAINST B: {compare_B['name']}, a {compare_B['description']}, from {compare_B['country']}.")
+  
+    # print(compare_A['follower_count'], compare_B['follower_count']) #DELETE
 
+    #prompt for input guess
+    guess = input("\nWho has more follower? Type 'a' or 'b': ")
 
-if compare == guess
-    run again
-    compare()
-    guess()
-else
-    print(f"Sorry, wrong guess. Final score: {score}")
-       
+    #check to see if guess is correct
+    if (guess == 'a' and compare_A['follower_count'] > compare_B['follower_count']) or (guess == 'b' and compare_A['follower_count'] < compare_B['follower_count']):
+        score += 1
+    else:
+        print(f"\nSorry, wrong guess!! Final score {score}.")
+        play_again = False
 
-"""
+print("\n")
