@@ -10,8 +10,8 @@ while start_again == 'y':
     print(logo)
 
 
-    #function to pick an entry and pass into new compare_B dictionary
     def select_compare_B():
+        """pick a random entry and pass it into a new compare_B dictionary"""
         choice_B = random.choice(data)
         compare_B = {key: value for key, value in choice_B.items()}
 
@@ -20,13 +20,13 @@ while start_again == 'y':
     compare_B = select_compare_B()
 
 
-    play_again = True
+    keep_playing = True
     start_again = 'y'
     score = 0
     guess = False
 
     #while lopp to continue playing while guess is correct
-    while play_again:
+    while keep_playing:
 
         #pass compare_b into compare_a and choose new compare_b
         compare_A = compare_B
@@ -36,31 +36,32 @@ while start_again == 'y':
         while compare_B["follower_count"] == compare_A["follower_count"]:
             compare_B = select_compare_B()
 
-        #print items to compare
         os.system('cls')
         print(logo)
 
+        #print score at start
         if guess:
             print(f"You are correct!! Current Score: {score}.\n")
         else:
             print("Current Score: 0\n")
 
+        #print items to compare
         print(f"COMPARE A: {compare_A['name']}, a {compare_A['description']}, from {compare_A['country']}...")
         print(vs)
         print(f"AGAINST B: {compare_B['name']}, a {compare_B['description']}, from {compare_B['country']}.")
     
-        # print(compare_A['follower_count'], compare_B['follower_count']) #DELETE
 
         #prompt for input guess
-        guess = input("\nWho has more follower? Type 'a' or 'b': ")
+        print(compare_A['follower_count'], compare_B['follower_count']) # HINT TO DELETE
+        guess = input("\nWho has more followers? Type 'a' or 'b': ").lower()
 
-        #check to see if guess is correct
+        #check to see if guess is correct and play again or ask to exit
         if (guess == 'a' and compare_A['follower_count'] > compare_B['follower_count']) or (guess == 'b' and compare_A['follower_count'] < compare_B['follower_count']):
             score += 1
         else:
             print(f"\nSorry, wrong guess!! Final score {score}.")
-            play_again = False
+            keep_playing = False
 
-    start_again = input("\nWould you like to play again? (y/n) ")
+    start_again = input("\n\nWould you like to start again? (y/n) ").lower()
 
 print("\n")
