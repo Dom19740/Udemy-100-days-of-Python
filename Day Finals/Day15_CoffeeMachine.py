@@ -1,4 +1,4 @@
-from coffeemachine_art import logo
+from art.coffeemachine_art import logo
 
 MENU = {
     "Espresso": {

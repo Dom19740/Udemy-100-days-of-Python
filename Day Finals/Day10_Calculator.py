@@ -1,5 +1,5 @@
 #Calculator
-from calculator_art import logo
+from art.calculator_art import logo
 import os
 
 os.system('cls')

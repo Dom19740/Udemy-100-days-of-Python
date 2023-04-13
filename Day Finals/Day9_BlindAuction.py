@@ -1,4 +1,4 @@
-import blindauction_art
+import art.blindauction_art
 import os
 
 os.system('cls')

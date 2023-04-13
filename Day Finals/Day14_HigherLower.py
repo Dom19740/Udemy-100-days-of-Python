@@ -1,5 +1,5 @@
-from higherlower_art import logo, vs
-from higherlower_gamedata import data
+from art.higherlower_art import logo, vs
+from data.higherlower_gamedata import data
 import os
 import random
 

@@ -1,4 +1,4 @@
-from blackjack_art import logo, prize, logo2
+from art.blackjack_art import logo, prize, logo2
 import os
 import random
 
