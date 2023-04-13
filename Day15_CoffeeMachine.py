@@ -1,5 +1,4 @@
 from coffeemachine_art import logo
-import os
 
 MENU = {
     "Espresso": {
@@ -41,8 +40,12 @@ coin_values = {
     "10c": 0.1,
 }
 
+income = 0
+restock_resources = resources.copy()
+
 
 def check_resources(order):
+    """returns True if resources are ok, False if not"""
     for ingredient, amount in MENU[order]['ingredients'].items():
         if amount > resources[ingredient]:
             print(f"Not enough {ingredient} available for {order}")
@@ -51,36 +54,43 @@ def check_resources(order):
 
 
 def process_coins(order, income):
+    """Returns income after coins are processed and deducts resource ingredients """
     coins_entered = {}
     total_coin_value = 0
 
+    # print drink price
     print(f"{order} price: €{MENU[order]['cost']:.2f}\n")
 
+    # prompt for coins and count total inserted
     for denomination, value in coin_values.items():
         count = int(input(f"Enter the number of {denomination} coins: "))
-        coins_entered[denomination] = count
         total_coin_value = total_coin_value + (count * coin_values[denomination])
         print(f"Entered: €{total_coin_value:.2f}")
+
+        # stop prompting if total is sufficient
         if total_coin_value >= MENU[order]['cost']:
             break
 
+    # if not enough coins entered
     if total_coin_value < MENU[order]['cost']:
         print("Not enough money, coins refunded.")
+    # make drink, give change and add income
     else:
         change = total_coin_value - MENU[order]['cost']
         income = income + MENU[order]['cost']
-        print(f"\nEnjoy your {order}, here's your change: €{change:.2f}")
+        print(f"\nEnjoy your {order} ☕, here's your change: €{change:.2f}")
 
+        # deduct used ingredients from resources
         for ingredient, amount in MENU[order]['ingredients'].items():
             resources[ingredient] = resources[ingredient] - amount
+
     return income
 
 
+# function for admin menu
 def admin(income):
+    """Returns True and Income except for Shutdown which returns False and Income"""
     admin_mode = True
-
-    # Create a copy of the resources dictionary for resetting
-    original_resources = resources.copy()
 
     def print_report():
         print(f"\nWater:  {resources['water']}ml")
@@ -102,12 +112,12 @@ def admin(income):
             for ingredient, amount in resources.items():
                 resources[ingredient] = restock_resources[ingredient]
             print_report()
-        elif prompt == 'o':
-            print("Shutting down...")
-            return False, income
         elif prompt == 'c':
             print(f"\n€{income:.2f} debited.")
             income = 0
+        elif prompt == 'o':
+            print("Shutting down...")
+            return False, income
         elif prompt == 'e':
             return True, income
         else:
@@ -115,8 +125,6 @@ def admin(income):
 
 
 keep_running = True
-income = 0
-restock_resources = resources.copy()
 
 print(logo)
 
