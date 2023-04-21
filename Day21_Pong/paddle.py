@@ -7,17 +7,17 @@ class Paddle(Turtle):
         super().__init__()
         self.shape("square")
         self.penup()
-        self.shapesize(stretch_len=5, stretch_wid=1)
+        self.shapesize(stretch_len=1, stretch_wid=5)
         self.color(color)
-        self.speed("fastest")
         self.goto(position)
-        self.setheading(90)
 
     # control movements with arrows
     def up(self):
-        self.forward(20)
+        new_y = self.ycor() + 20
+        self.goto(self.xcor(), new_y)
 
     def down(self):
-        self.backward(20)
+        new_y = self.ycor() - 20
+        self.goto(self.xcor(), new_y)
 
 
