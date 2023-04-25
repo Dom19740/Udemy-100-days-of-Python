@@ -3,15 +3,18 @@ from turtle import Turtle
 # Put constants at the top so you can change them easily
 FONT = ('courier', 16, 'normal')
 
+
 class Scoreboard(Turtle):
 
     def __init__(self, position, player):
         super().__init__()  # Inherit attributes and methods of Turtle Class, and expand on them
-        self.keep_high_score()
+        self.score = None
+        self.highscore = None
+        self.read_hiscore()
         self.initialise_score(position, player)
 
-    def keep_high_score(self):
-        self.highscore = 0
+    # def keep_high_score(self):
+    #     self.read_hiscore()
 
     def initialise_score(self, position, player):
         self.color("white")
@@ -35,8 +38,17 @@ class Scoreboard(Turtle):
         self.goto(0, 100)
         self.write("GAME OVER", align="center", font=FONT)
 
-    def reset(self, position, player):
-        if self.score > self.highscore:
+    def test(self, position, player):
+        if self.score > int(self.highscore):
             self.highscore = self.score
+            self.write_hiscore()
         self.clear()
         self.initialise_score(position, player)
+
+    def read_hiscore(self):
+        with open("data.txt") as file:
+            self.highscore = file.read()
+
+    def write_hiscore(self):
+        with open("data.txt", mode="w") as file:
+            file.write(str(self.highscore))

@@ -65,8 +65,10 @@ def start_1player_game():
     if restart == "y":
         food.refresh()
         snake1.reset(color1, [(0, 100), (-20, 100), (-40, 100)])
-        scoreboard1.reset((0, 275), color1)
+        scoreboard1.test((0, 275), color1)
         start_1player_game()
+    else:
+        scoreboard1.write_hiscore()
 
 
 def setup_2player_game():
@@ -138,8 +140,8 @@ def start_2player_game():
         food.refresh()
         snake1.reset(color1, [(0, 100), (-20, 100), (-40, 100)])
         snake2.reset(color2, [(0, -100), (-20, -100), (-40, -100)])
-        scoreboard1.reset((0, 275), color1)
-        scoreboard2.reset((0, -275), color2)
+        scoreboard1.test((0, 275), color1)
+        scoreboard2.test((0, -275), color2)
         start_2player_game()
 
 
