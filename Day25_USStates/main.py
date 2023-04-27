@@ -2,12 +2,9 @@ import turtle
 import pandas
 from state import State
 
-NUMBER_TO_GUESS = 5
-
-
 screen = turtle.Screen()
 screen.setup(width=725, height=491)
-screen.title(f"Guess {NUMBER_TO_GUESS} U.S. States")
+screen.title(f"Guess the U.S. States")
 image = "blank_states_img.gif"
 screen.addshape(image)
 turtle.shape(image)
@@ -26,6 +23,9 @@ data = pandas.read_csv("50_states.csv")
 correct_states = []
 state = State()
 states_to_learn = data["state"].to_list()
+
+NUMBER_TO_GUESS = int(screen.textinput(title=f"No. of states to guess?",
+                                       prompt="Enter 1 - 50"))
 
 # while all states aren´t guessed
 while len(correct_states) < NUMBER_TO_GUESS:
@@ -53,6 +53,3 @@ while len(correct_states) < NUMBER_TO_GUESS:
 if len(correct_states) == NUMBER_TO_GUESS:
     state.game_over(NUMBER_TO_GUESS)
 turtle.mainloop()
-
-
-
