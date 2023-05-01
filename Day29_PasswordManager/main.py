@@ -3,7 +3,6 @@ from tkinter import messagebox
 from random import choice, randint, shuffle
 import pyperclip
 
-
 FONT = ("Calibri", 10, "normal")
 
 
