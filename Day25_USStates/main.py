@@ -35,6 +35,7 @@ while len(correct_states) < NUMBER_TO_GUESS:
                               prompt="Name a state: ")).title()
 
     if guess == "Exit":
+        # save states to learn to new csv
         data = pandas.DataFrame(states_to_learn)
         data.to_csv("states_to_learn.csv")
         break

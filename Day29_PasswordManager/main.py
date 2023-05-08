@@ -60,13 +60,13 @@ def search():
             copy_password = messagebox.askokcancel(title=f"Site: {search_website}",
                                                    message=f"Email:         {search_email}"
                                                            f"\n"f"Password:  {search_password}"
-                                                           f"\n\nCopy password to clipboard")
+                                                           f"\n\nCopy password to clipboard?")
             if copy_password:
                 # copy password to clipboard
                 pyperclip.copy(search_password)
 
         else:
-            messagebox.askokcancel(title="Error", message="No Site found")
+            messagebox.showinfo(title="Error", message="No Site found")
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
