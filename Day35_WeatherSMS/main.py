@@ -5,12 +5,12 @@ from twilio.rest import Client
 
 url = "https://api.openweathermap.org/data/2.5/forecast"
 twilio_account_sid = "ACa3c015cc5e6c0bfd001db9f617d88b1b"
-twilio_auth_token = "d9a66fdd4de63c6402f159de86005c7a"
+twilio_auth_token = "xxx"
 
 parameters = {
     "lat": 38.6992,
     "lon": -9.2204,
-    "appid": "f07612a1c7f33c60edf3f7e5d8a21b7c",
+    "appid": "xxx",
 }
 
 
