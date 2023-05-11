@@ -5,12 +5,14 @@ from twilio.rest import Client
 
 url = "https://api.openweathermap.org/data/2.5/forecast"
 twilio_account_sid = "ACa3c015cc5e6c0bfd001db9f617d88b1b"
-twilio_auth_token = "d9a66fdd4de63c6402f159de86005c7a"
+twilio_auth_token = "00f095ba6e39ef5fb3a84bba66e053b4"
+
 
 parameters = {
     "lat": 38.6992,
     "lon": -9.2204,
     "appid": "f07612a1c7f33c60edf3f7e5d8a21b7c",
+    "units": "metric"
 }
 
 
@@ -40,25 +42,33 @@ if response.status_code == 200:
     next_12_hours = now + timedelta(hours=12)
     is_hot_and_sunny = False
 
+    # work out highest temp
+    highest_temp = None
+    for forecast in forecasts[:4]:
+        temp = round(forecast['main']['temp'], 1)
+        if highest_temp is None or temp > highest_temp:
+            highest_temp = temp
+
     for forecast in forecasts:
         forecast_time = datetime.fromtimestamp(forecast["dt"])
         if forecast_time > next_12_hours:
             break
         weather = forecast["weather"][0]["description"]
-        temp = forecast["main"]["temp"]
         is_sunny = "clear sky" in weather.lower() or "few clouds" in weather.lower()
-        is_hot = temp > 22
+        is_hot = temp > 25
 
     if is_sunny and is_hot:
-        print(f"It's hot and sunny today in {location}! Where a hat 😎.")
+        message = f"It's hot, {highest_temp}°C, and sunny today in {location}! Wear a hat 🥵😎."
         send_alert = True
     elif is_sunny:
-        print(f"It's sunny but not very hot in {location}.")
+        message = f"It's sunny today in {location}, but not very hot, {highest_temp}°C 😎."
+        send_alert = True
     elif is_hot:
-        print(f"It's hot but not very sunny in {location}.")
+        message = f"It's hot today, {highest_temp}°C, in {location}, but not very sunny 🥵."
+        send_alert = True
     else:
-        print(f"It's not very hot or sunny in {location}.")
-
+        message = f"It's not very hot or sunny in {location}, {highest_temp}°C today."
+    print(message)
 
 
 # RAIN ALERT
@@ -78,7 +88,6 @@ if response.status_code == 200:
 # else:
 #     print("\nError: API request was not successful.")
 
-
 if send_alert:
 
     client = Client(twilio_account_sid, twilio_auth_token)
@@ -91,10 +100,10 @@ if send_alert:
     #     to='+34652678183'
     # )
 
-    # send whatsapp
-    message = client.messages.create(
-        from_='whatsapp:+14155238886',
-        body=f"Weather Alert!\nHey Dom,\nIt´s hot and sunny in {location} today. Where a hat 😎!",
-        to='whatsapp:+34652678183'
-    )
-    print(message.status)
+    # # send whatsapp
+    # message = client.messages.create(
+    #     from_='whatsapp:+14155238886',
+    #     body=f"Weather Alert!\nHey Dom,\n{message}",
+    #     to='whatsapp:+34652678183'
+    # )
+    # print(message.status)
