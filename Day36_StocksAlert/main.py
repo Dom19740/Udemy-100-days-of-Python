@@ -18,6 +18,7 @@ def stock_change():
         "symbol": STOCK,
         "interval": "60min",
         "apikey": "EG8QPINFXKGCICPS",
+
     }
 
     # When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
