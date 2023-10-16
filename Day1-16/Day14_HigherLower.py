@@ -37,7 +37,7 @@ while start_again == 'y':
             compare_B = select_compare_b()
 
         os.system('cls')
-        print(logo)
+        # print(logo)
 
         # print score at start
         if guess:
