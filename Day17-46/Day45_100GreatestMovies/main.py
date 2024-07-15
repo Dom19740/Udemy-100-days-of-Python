@@ -1,17 +1,21 @@
 import requests
 from bs4 import BeautifulSoup
+import pandas as pd
 
-response = requests.get("https://web.archive.org/web/20200518073855/https://www.empireonline.com/movies/features/best-movies-2/")
-html = response.text
+# Open the file in read mode
+with open("D:/soup/3.htm", "r") as file:
+    # Read the entire file and store it in a string
+    html = file.read()
+
 soup = BeautifulSoup(html, 'html.parser')
 
-movie_list = soup.find_all('h3', class_='title')
+# Find all div tags with class 'name'
+name_tags = soup.find_all('div', {'class': 'name'})
 
-movie_titles = [movie.getText() for movie in movie_list]
+# Extract the text within each tag
+movie_titles = [tag.get_text() for tag in name_tags]
 
-reverse_list = movie_titles[::-1]
+df = pd.DataFrame(movie_titles, columns=['Movie Title'])
 
-
-with open("movies.txt", mode="w") as file:
-    for entry in reverse_list:
-        file.write(f"{entry}\n")
+# Save the DataFrame to a CSV file
+df.to_csv('movie_list.csv', index=False)

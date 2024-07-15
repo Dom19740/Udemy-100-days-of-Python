@@ -15,7 +15,7 @@ while start_again == 'y':
         choice_B = random.choice(data)
         compare_B = {key: value for key, value in choice_B.items()}
 
-        return choice_B
+        return choice_Bb
 
     compare_B = select_compare_b()
 
